@@ -51,7 +51,7 @@ local function download_lsp()
 
   local lsp_bin = config.get().lsp_bin
   if lsp_bin ~= nil then
-    if fn.filereadable(lsp_bin) == 0 then
+    if fn.filereadable(lsp_bin) == 0 and fn.executable(lsp_bin) == 0 then
       vim.notify("[REFACT] couldn't find lsp binary: " .. lsp_bin, vim.log.levels.ERROR)
       return nil
     end
