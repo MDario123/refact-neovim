@@ -43,6 +43,22 @@ local default_config = {
 
   -- Expression that is used to decide if it should do single line code completion.
   completion_expression = "^[%s%]:(){},.\"';>]*$",
+
+  -- Chat server port.
+  --- @type string
+  http_port = "8008",
+
+  -- Configuration for chat, called with `:RefactChat`.
+  chat = {
+    -- Default system prompt.
+    --- @type string
+    default_prompt = "",
+
+    -- Default model.
+    -- TODO: Description for what happens when model is changed.
+    --- @type string
+    default_model = "",
+  },
 }
 
 local M = {

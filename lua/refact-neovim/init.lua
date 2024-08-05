@@ -28,6 +28,8 @@ local function setup(user_config)
       vim.keymap.set("i", pause_keymap, completion.toggle_pause, { expr = true })
     end
   end)
+
+  require("refact-neovim.chat").setup()
 end
 
 return {

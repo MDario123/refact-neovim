@@ -125,9 +125,14 @@ end
 local function create_command(path)
   local cmd = {
     path,
-    "--address-url", config.get().address_url,
-    "--api-key", config.get().api_key,
-    "--lsp-stdin-stdout", "1"
+    "--address-url",
+    config.get().address_url,
+    "--api-key",
+    config.get().api_key,
+    "--lsp-stdin-stdout",
+    "1",
+    "--http-port",
+    config.get().http_port,
   }
 
   if config.get().insecure_ssl then

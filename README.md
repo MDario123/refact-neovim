@@ -81,6 +81,21 @@ require('refact-neovim').setup({
 
   -- Expression that is used to decide if it should do single line code completion.
   completion_expression = "^[%s%]:(){},.\"';>]*$",
+
+  -- Configuration for chat, called with `:RefactChat`.
+  chat = {
+    -- Default system prompt.
+    --- @type string
+    default_prompt = "",
+
+    -- Default model.
+    --- @type string
+    default_model = "",
+
+    -- Default chat server address.
+    --- @type string
+    url = "127.0.0.1:8080/v1/chat",
+  },
 })
 ```
 
