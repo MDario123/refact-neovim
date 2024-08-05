@@ -89,11 +89,11 @@ end
 
 function M.get_completions(callback)
   if M.client_id == nil then
-    vim.notify("client_id is nil", vim.log.levels.WARN)
+    vim.notify("[REFACT] client_id is nil", vim.log.levels.WARN)
     return
   end
   if not lsp.buf_is_attached(0, M.client_id) then
-    vim.notify("buffer is not attached", vim.log.levels.WARN)
+    vim.notify("[REFACT] buffer is not attached", vim.log.levels.WARN)
     return
   end
 
