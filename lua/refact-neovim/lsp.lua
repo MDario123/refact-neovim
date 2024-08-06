@@ -6,7 +6,7 @@ local fn = vim.fn
 
 local M = {
   setup_done = false,
-  client_id = nil
+  client_id = nil,
 }
 
 local function get_bin_url()
@@ -15,17 +15,12 @@ local function get_bin_url()
   local os = os_uname.sysname
 
   local dist_map = {
-    x86_64_Linux =
-    "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-x86_64-unknown-linux-gnu.zip",
-    armv7l_Linux =
-    "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-arm-unknown-linux-gnueabihf.zip",
-    arm64_Linux =
-    "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-aarch64-unknown-linux-gnu.zip",
-    x86_64_Windows =
-    "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-x86_64-pc-windows-msvc.zip",
+    x86_64_Linux = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-x86_64-unknown-linux-gnu.zip",
+    armv7l_Linux = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-arm-unknown-linux-gnueabihf.zip",
+    arm64_Linux = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-aarch64-unknown-linux-gnu.zip",
+    x86_64_Windows = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-x86_64-pc-windows-msvc.zip",
     i686_Windows = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-i686-pc-windows-msvc.zip",
-    arm64_Windows =
-    "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-aarch64-pc-windows-msvc.zip",
+    arm64_Windows = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-aarch64-pc-windows-msvc.zip",
     x86_64_Darwin = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-x86_64-apple-darwin.zip",
     arm64_Darwin = "https://github.com/smallcloudai/refact-lsp/releases/download/v0.8.3/dist-aarch64-apple-darwin.zip",
   }
@@ -125,9 +120,12 @@ end
 local function create_command(path)
   local cmd = {
     path,
-    "--address-url", config.get().address_url,
-    "--api-key", config.get().api_key,
-    "--lsp-stdin-stdout", "1"
+    "--address-url",
+    config.get().address_url,
+    "--api-key",
+    config.get().api_key,
+    "--lsp-stdin-stdout",
+    "1",
   }
 
   if config.get().insecure_ssl then

@@ -23,7 +23,7 @@ end
 
 function M.get_screen_pos()
   local line = api.nvim_win_get_cursor(0)[1]
-  return line, vim.fn.virtcol('.') - 1
+  return line, vim.fn.virtcol(".") - 1
 end
 
 function M.get_current_line()
@@ -47,7 +47,7 @@ function M.is_module_available(name)
   else
     for _, searcher in ipairs(package.loaders) do
       local loader = searcher(name)
-      if type(loader) == 'function' then
+      if type(loader) == "function" then
         package.preload[name] = loader
         return true
       end

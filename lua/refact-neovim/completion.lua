@@ -67,7 +67,7 @@ local function show_suggestion()
 
     local line, col = util.get_screen_pos()
     local extmark = {
-      virt_text = { { lines[1], "Comment" } }
+      virt_text = { { lines[1], "Comment" } },
     }
     if refact_lsp.should_do_multiline() then
       extmark.virt_lines = {}
