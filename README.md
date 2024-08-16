@@ -130,6 +130,11 @@ require('refact-neovim').setup({
 })
 ```
 
+### Chat
+
+You can use `:RefactChat <Message>` to start a chat with the assistant.
+Try `:RefactChat Hello` to see it in action.
+
 ### Lualine
 
 Refact-neovim is compatible with [lualine](https://github.com/nvim-lualine/lualine.nvim).
