@@ -4,12 +4,15 @@ Refact for Neovim is a free, open-source AI code assistant.
 
 ## Installation
 
+Has a dependency on [plenary.nvim](https://github.com/nvim-lua/plenary.nvim).
+
 ### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 {
   "smallcloudai/refact-neovim",
   lazy = false,
+  dependencies = { "nvim-lua/plenary.nvim" }, -- Specify plenary.nvim as a dependency
   config = function()
     require("refact-neovim").setup({
       address_url = "Refact",
@@ -24,6 +27,7 @@ Refact for Neovim is a free, open-source AI code assistant.
 ```lua
 use {
   "smallcloudai/refact-neovim",
+  requires = { { "nvim-lua/plenary.nvim" } }, -- Specify plenary.nvim as a dependency
   config = function()
     require("refact-neovim").setup({
       address_url = "Refact",
