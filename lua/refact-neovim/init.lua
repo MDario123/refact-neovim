@@ -12,15 +12,15 @@ local function setup(user_config)
     refact_lsp.setup()
 
     api.nvim_create_autocmd("InsertLeave", {
-      callback = completion.cancel
+      callback = completion.cancel,
     })
 
     api.nvim_create_autocmd("InsertEnter", {
-      callback = completion.schedule
+      callback = completion.schedule,
     })
 
     api.nvim_create_autocmd("CursorMovedI", {
-      callback = completion.schedule
+      callback = completion.schedule,
     })
 
     local pause_keymap = config.get().pause_keymap

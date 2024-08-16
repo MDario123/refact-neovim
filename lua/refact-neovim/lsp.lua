@@ -123,6 +123,7 @@ function M.get_completions(callback)
 end
 
 local function create_command(path)
+  M.port = util.get_free_port()
   local cmd = {
     path,
     "--address-url",
@@ -132,7 +133,7 @@ local function create_command(path)
     "--lsp-stdin-stdout",
     "1",
     "--http-port",
-    config.get().http_port,
+    M.port,
   }
 
   if config.get().insecure_ssl then

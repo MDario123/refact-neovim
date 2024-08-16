@@ -44,20 +44,50 @@ local default_config = {
   -- Expression that is used to decide if it should do single line code completion.
   completion_expression = "^[%s%]:(){},.\"';>]*$",
 
-  -- Chat server port.
-  --- @type string
-  http_port = "8008",
-
   -- Configuration for chat, called with `:RefactChat`.
   chat = {
-    -- Default system prompt.
+    -- System prompt, you might use to set your assistant's context, personality, etc.
     --- @type string
-    default_prompt = "",
+    prompt = "",
 
-    -- Default model.
-    -- TODO: Description for what happens when model is changed.
+    -- Chat model, an empty string will use the default one,
+    -- putting a wrong one will tell you which ones are available, when you call `:RefactChat`.
     --- @type string
-    default_model = "",
+    model = "",
+
+    -- Maximum number of tokens to generate for chat response.
+    max_tokens = 2000,
+
+    -- Function that takes a buffer that contains the chat history, will be called on `:RefactChatShow` command.
+    show_history = function(buffer)
+      local function is_buffer_visible(bufnr)
+        -- Get the list of all window IDs
+        local windows = vim.api.nvim_list_wins()
+
+        -- Iterate through each window
+        for _, win_id in ipairs(windows) do
+          -- Get the buffer associated with the window
+          local visible_bufnr = vim.api.nvim_win_get_buf(win_id)
+
+          -- Check if the buffer number matches
+          if visible_bufnr == bufnr then
+            return true, win_id -- The buffer is visible
+          end
+        end
+
+        return false, nil -- The buffer is not visible
+      end
+
+      local visible, win_id = is_buffer_visible(buffer)
+
+      if not visible then
+        vim.cmd("vsplit")
+        vim.api.nvim_set_current_buf(buffer)
+      else
+        assert(win_id, "If the buffer is visible, it must have a window ID")
+        vim.api.nvim_set_current_win(win_id)
+      end
+    end,
   },
 }
 

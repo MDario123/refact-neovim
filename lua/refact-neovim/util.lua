@@ -2,6 +2,56 @@ local api = vim.api
 
 local M = {}
 
+--- Get a free TCP port.
+---
+--- This function creates a TCP socket, binds it to a free port (using port 0),
+--- retrieves the assigned port number, and then closes the socket. It returns
+--- the free port number. The port is expected to be free, but there is no
+--- guarantee that it will remain free after this function returns.
+---
+--- @return integer: The free port number assigned by the operating system.
+---
+--- Usage:
+--- local free_port = get_free_port()
+M.get_free_port = function()
+  -- Create a TCP socket
+  local server = vim.uv.new_tcp()
+  server:bind("127.0.0.1", 0) -- Bind to port 0
+  local port = server:getsockname().port -- Get the assigned port
+  server:close() -- Close the socket
+  return port -- Return the free port and hope it stays free
+end
+
+--- @param buf integer: The buffer to modify.
+--- @param _start integer: The starting line number for the modification.
+--- @param _end integer: The ending line number for the modification.
+--- @param _lines table: A table containing the lines to insert into the buffer.
+---
+--- Usage:
+--- This function behaves similarly to `nvim_buf_set_lines`, but with the following
+--- differences:
+--- - Strict indexing is false.
+--- - It allows modifications to a buffer that is set to non-modifiable.
+--- - It keeps the buffer as non-modifiable after the modification.
+--- - It automatically moves the cursor to the last character of the buffer if the
+---   buffer is focused and the current mode is normal.
+---
+--- This function is particularly useful for updating chat history.
+M.modify_buf_lines = function(buf, _start, _end, _lines)
+  vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
+
+  vim.api.nvim_buf_set_lines(buf, _start, _end, false, _lines)
+
+  -- If this window is focused move cursor to the end of the buffer
+  local curr_win = vim.api.nvim_get_current_win()
+  local curr_mode = vim.api.nvim_get_mode()
+  local focused_bufnr = vim.api.nvim_win_get_buf(curr_win)
+  if focused_bufnr == buf and curr_mode.mode == "n" then
+    vim.api.nvim_feedkeys("G$", "", false)
+  end
+
+  vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+end
 function M.split_str(str, separator)
   local parts = {}
   local start = 1
